@@ -132,7 +132,7 @@ $ git add config.toml
 $ git commit -m &quot;Add hugo-paper theme&quot;
 </code></pre>
 
-<p>Importing the theme as a git submodule means we won&rsquo;t be able to edit its source code.
+<p>Importing the theme as a git submodule means we won&rsquo;t be able to edit its source code as part of our codebase.
 But that&rsquo;s alright, because the proper way to overload a theme is by leveraging Hugo&rsquo;s <a href="https://gohugo.io/templates/lookup-order/">lookup order</a>.</p>
 
 <p>For instance for a <a href="https://zwbetz.com/override-a-hugo-theme/">layout change</a>:</p>
@@ -149,7 +149,7 @@ But that&rsquo;s alright, because the proper way to overload a theme is by lever
 
 <h3 id="step-4-add-some-content">Step 4: Add Some Content</h3>
 
-<pre><code>$ ../hugo new articles/hugo-on-github-pages.md
+<pre><code>$ ../hugo new articles/static-site-hugo-github-pages.md
 </code></pre>
 
 <p>You might want to get a refresher course on Markdown from this <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet</a>.</p>
@@ -259,11 +259,6 @@ matrey.github.io/404.html
 <p>Note that Hugo <a href="https://gohugo.io/getting-started/usage/#dev-vs-deploy-destinations">does not remove generated files before building</a>.
 It might be a good idea to purge the folder&rsquo;s contents before each generation.</p>
 
-<p>Let&rsquo;s also exclude the publication folder from the main git repo, as it will have its own repo:</p>
-
-<pre><code>echo '/matrey.github.io/**' &gt;&gt; .gitignore
-</code></pre>
-
 <h2 id="github-pages">GitHub pages</h2>
 
 <h3 id="create-the-repository">Create the repository</h3>
@@ -280,7 +275,13 @@ $ git remote add origin git@github.com:matrey/matrey.github.io.git
 $ git push -u origin master
 </code></pre>
 
-<p>Note that deployment is not instant, especially due to CDN caching on GitHub site.</p>
+<p>Note that changes might not appear immediately, due to CDN caching on GitHub site.</p>
+
+<p>To make sure this folder doesn&rsquo;t end up in the main repo, we declare it as a submodule:</p>
+
+<pre><code>$ cd ..
+$ git submodule add git@github.com:matrey/matrey.github.io.git matrey.github.io
+</code></pre>
 
 <h3 id="custom-404-page">Custom 404 page</h3>
 
