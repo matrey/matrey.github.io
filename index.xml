@@ -12,12 +12,12 @@
     
     
     <item>
-      <title>Hugo on GitHub Pages</title>
-      <link>https://matrey.github.io/articles/hugo-on-github-pages/</link>
+      <title>Static site with Hugo and GitHub Pages</title>
+      <link>https://matrey.github.io/articles/static-site-hugo-github-pages/</link>
       <pubDate>Sat, 10 Aug 2019 17:23:36 +0800</pubDate>
       
-      <guid>https://matrey.github.io/articles/hugo-on-github-pages/</guid>
-      <description>&lt;p&gt;Summary&lt;/p&gt;</description>
+      <guid>https://matrey.github.io/articles/static-site-hugo-github-pages/</guid>
+      <description>&lt;p&gt;An exploration of Hugo, a static site generator, and how to host the resulting static website on GitHub pages.&lt;/p&gt;</description>
     </item>
     
   </channel>

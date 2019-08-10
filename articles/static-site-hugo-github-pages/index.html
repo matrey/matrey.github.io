@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>Static site with Hugo and GitHub Pages - matrey</title>
+    
+    <meta name="description" content="An exploration of Hugo, a static site generator, and how to host the resulting static website on GitHub pages.">
+    <meta name="author" content="Mathieu Rey">
+    
+    <link href="https://matrey.github.io/css/github-gist.min.css" rel="stylesheet">
+    <link href="https://matrey.github.io/css/style.css" rel="stylesheet">
+    
+    <link rel="apple-touch-icon" href="https://matrey.github.io/img/apple-touch-icon.png">
+    <link rel="icon" href="https://matrey.github.io/img/favicon.ico">
+    
+    <meta name="generator" content="Hugo 0.56.3" />
+    
+    <link rel="alternate" type="application/atom+xml" href="https://matrey.github.io/index.xml" title="matrey">
+    
+    
+    
+  </head>
+  <body class="single">
+    <header class="header">
+      <div class="wrap">
+        
+        <p class="logo"><a href="https://matrey.github.io/">matrey</a></p>
+        
+        
+      </div>
+    </header>
+    
+    <main class="main">
+
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">Static site with Hugo and GitHub Pages</h1>
+    <div class="post-meta">Mathieu Rey · 2019.8.10</div>
+  </header>
+  <div class="post-content"><p>An exploration of Hugo, a static site generator, and how to host the resulting static website on GitHub pages.</p>
+
+<h2 id="why-hugo">Why Hugo?</h2>
+
+<p>Benefits of a static site:</p>
+
+<ul>
+<li>cheap to host</li>
+<li>good security (no server-side interpreter)</li>
+<li>good performance</li>
+</ul>
+
+<p>Benefits of Hugo (e.g. compared to Jekyll or Hexo):</p>
+
+<ul>
+<li>single binary</li>
+<li>fast building time</li>
+</ul>
+
+<h2 id="hugo-quick-start">Hugo Quick Start</h2>
+
+<p>We will follow the steps in Hugo&rsquo;s <a href="https://gohugo.io/getting-started/quick-start/">Quick Start guide</a>.</p>
+
+<h3 id="step-1-install-hugo">Step 1: Install Hugo</h3>
+
+<p>Go get the latest binary from <a href="https://github.com/gohugoio/hugo/releases">https://github.com/gohugoio/hugo/releases</a>.
+<em>Remark: there is an &ldquo;extended&rdquo; version with native support for SASS/SCSS &amp; PostCSS.</em></p>
+
+<h3 id="step-2-create-a-new-site">Step 2: Create a New Site</h3>
+
+<pre><code>$ ./hugo new site matrey
+$ cd matrey
+</code></pre>
+
+<p>Let&rsquo;s check the <a href="https://gohugo.io/getting-started/directory-structure/">directory structure</a> that was generated:</p>
+
+<pre><code>$ ls -1 --group-directories-first
+archetypes
+content
+data
+layouts
+resources
+static
+themes
+config.toml
+</code></pre>
+
+<p>Mainly:</p>
+
+<ul>
+<li>create your pages under <code>content</code></li>
+<li>put assets (JS, images&hellip;) under <code>static</code></li>
+<li>override theme layouts under <code>layouts</code></li>
+</ul>
+
+<p>By default only 2 files exist:</p>
+
+<pre><code>$ find . -type f
+./config.toml
+./archetypes/default.md
+
+$ cat ./archetypes/default.md 
+---
+title: &quot;{{ replace .Name &quot;-&quot; &quot; &quot; | title }}&quot;
+date: {{ .Date }}
+draft: true
+---
+
+$ cat ./config.toml
+baseURL = &quot;http://example.org/&quot;
+languageCode = &quot;en-us&quot;
+title = &quot;My New Hugo Site&quot;
+</code></pre>
+
+<p>Let&rsquo;s push that to the git repository holding the source:</p>
+
+<pre><code>$ git init
+$ git remote add origin git@github.com:matrey/matrey.github.io-source.git
+$ git add .
+$ git commit -m &quot;./hugo new site&quot;
+$ git push -u origin master
+</code></pre>
+
+<h3 id="step-3-add-a-theme">Step 3: Add a Theme</h3>
+
+<pre><code>$ git submodule add https://github.com/nanxiaobei/hugo-paper.git themes/hugo-paper
+$ echo 'theme = &quot;hugo-paper&quot;' &gt;&gt; config.toml
+$ git add config.toml
+$ git commit -m &quot;Add hugo-paper theme&quot;
+</code></pre>
+
+<p>Importing the theme as a git submodule means we won&rsquo;t be able to edit its source code.
+But that&rsquo;s alright, because the proper way to overload a theme is by leveraging Hugo&rsquo;s <a href="https://gohugo.io/templates/lookup-order/">lookup order</a>.</p>
+
+<p>For instance for a <a href="https://zwbetz.com/override-a-hugo-theme/">layout change</a>:</p>
+
+<blockquote>
+<p>Let’s say you really like theme foo, but you wish the homepage was different. All you have to do is copy the homepage template:</p>
+
+<p><code>your-site/themes/foo/layouts/index.html</code></p>
+
+<p>And paste it under your own layouts folder:</p>
+
+<p><code>your-site/layouts/index.html</code></p>
+</blockquote>
+
+<h3 id="step-4-add-some-content">Step 4: Add Some Content</h3>
+
+<pre><code>$ ../hugo new articles/hugo-on-github-pages.md
+</code></pre>
+
+<p>You might want to get a refresher course on Markdown from this <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet</a>.</p>
+
+<p>Note that you can explicitly add a summary divider in your page content, to control what content is shown on pagelists.
+According to <a href="https://gohugo.io/content-management/summaries/#manual-summary-splitting">Manual Summary Splitting</a>:</p>
+
+<blockquote>
+<p>[&hellip;] you may add the <code>&lt;!--more--&gt;</code> summary divider where you want to split the article.</p>
+
+<p>Content that comes before the summary divider will be used as that content’s summary and stored in the <code>.Summary</code> page variable with all HTML formatting intact.</p>
+
+<p>Be careful to enter <code>&lt;!--more--&gt;</code> exactly; i.e., all lowercase and with no whitespace.</p>
+</blockquote>
+
+<h3 id="step-5-start-the-hugo-server">Step 5: Start the Hugo server</h3>
+
+<p>By default Hugo will not publish content in &ldquo;draft&rdquo; status</p>
+
+<p>Start the Hugo server for local development, with drafts:</p>
+
+<pre><code>../hugo server -D
+</code></pre>
+
+<p><em>If you are not in the root folder from the Hugo site, you can pass its path through <code>-s ~/my-hugo-site</code></em></p>
+
+<p>Then navigate to your new site at <a href="http://localhost:1313/">http://localhost:1313/</a></p>
+
+<h2 id="make-hugo-deployment-ready">Make Hugo deployment-ready</h2>
+
+<h3 id="footer-copyright">Footer copyright</h3>
+
+<p>Let&rsquo;s change the copyright holder in the footer.
+Unfortunately it is hardcoded to <code>.Site.Title</code> in the template, so we will have to overload it:</p>
+
+<pre><code>$ mkdir -p ./layouts/partials/
+$ cp ./themes/hugo-paper/layouts/partials/footer.html ./layouts/partials/
+</code></pre>
+
+<p><em>Note that the <a href="https://gohugo.io/variables/site/#site-variables-list">Site Variables</a> page mentions <code>.Site.Author</code> as a variable that should be available by default.
+When using it in the layout, it&rsquo;s true there is no error (so, the variable seems to exist), but it ends up reading <code>© 2019 map[]</code>.
+It&rsquo;s really unclear <a href="https://github.com/gohugoio/hugo/issues/4458">what</a> <a href="https://discourse.gohugo.io/t/site-authors-not-implemented/10446/6">is</a> <a href="https://github.com/gohugoio/hugo/issues/3088">the</a> <a href="https://hugomodo.github.io/blog/hugo-s-author-and-authors/">status</a> on this feature. So we&rsquo;ll use a distinct variable.</em></p>
+
+<p>Let&rsquo;s create a new variable in <code>config.toml</code> by adding the following:</p>
+
+<pre><code>[params]
+  AuthorName = &quot;Mathieu Rey&quot;
+</code></pre>
+
+<p>Then edit our copy of the footer to use <code>.Site.Params.AuthorName</code>:</p>
+
+<pre><code>$ diff ./themes/hugo-paper/layouts/partials/footer.html ./layouts/partials/footer.html
+3c3
+&lt;   &lt;span&gt;&amp;copy; {{ now.Year }} &lt;a href=&quot;{{ &quot;&quot; | absURL }}&quot;&gt;{{ .Site.Title }}&lt;/a&gt;&lt;/span&gt;
+---
+&gt;   &lt;span&gt;&amp;copy; {{ now.Year }} &lt;a href=&quot;{{ &quot;&quot; | absURL }}&quot;&gt;{{ .Site.Params.AuthorName }}&lt;/a&gt;&lt;/span&gt;
+</code></pre>
+
+<h3 id="publication-folder">Publication folder</h3>
+
+<p>By default the publication folder is named <code>public</code>. Let&rsquo;s set a more explicit one in <code>config.toml</code>:</p>
+
+<pre><code>publishDir = &quot;matrey.github.io&quot;
+</code></pre>
+
+<p>Also, don&rsquo;t forget to replace the default <code>baseURL</code> with the real production URL (including a trailing slash):</p>
+
+<pre><code>baseURL = &quot;https://matrey.github.io/&quot;
+</code></pre>
+
+<p>Let&rsquo;s publish the site by calling <code>hugo</code> without any parameter:</p>
+
+<pre><code>$ ../hugo
+
+$ find matrey.github.io/
+matrey.github.io/
+matrey.github.io/tags
+matrey.github.io/tags/index.html
+matrey.github.io/tags/index.xml
+matrey.github.io/tags/page
+matrey.github.io/tags/page/1
+matrey.github.io/tags/page/1/index.html
+matrey.github.io/sitemap.xml
+matrey.github.io/index.html
+matrey.github.io/index.xml
+matrey.github.io/js
+matrey.github.io/js/instantclick.min.js
+matrey.github.io/js/highlight.min.js
+matrey.github.io/css
+matrey.github.io/css/github-gist.min.css
+matrey.github.io/css/style.css
+matrey.github.io/img
+matrey.github.io/img/favicon.ico
+matrey.github.io/img/apple-touch-icon.png
+matrey.github.io/page
+matrey.github.io/page/1
+matrey.github.io/page/1/index.html
+matrey.github.io/categories
+matrey.github.io/categories/index.html
+matrey.github.io/categories/index.xml
+matrey.github.io/categories/page
+matrey.github.io/categories/page/1
+matrey.github.io/categories/page/1/index.html
+matrey.github.io/404.html
+</code></pre>
+
+<p>Note that Hugo <a href="https://gohugo.io/getting-started/usage/#dev-vs-deploy-destinations">does not remove generated files before building</a>.
+It might be a good idea to purge the folder&rsquo;s contents before each generation.</p>
+
+<p>Let&rsquo;s also exclude the publication folder from the main git repo, as it will have its own repo:</p>
+
+<pre><code>echo '/matrey.github.io/**' &gt;&gt; .gitignore
+</code></pre>
+
+<h2 id="github-pages">GitHub pages</h2>
+
+<h3 id="create-the-repository">Create the repository</h3>
+
+<p>For a user site, you just need to create a new repository named <code>username.github.io</code>, where <code>username</code> is your username on GitHub.</p>
+
+<p>Let&rsquo;s push the contents of our publication folder to it:</p>
+
+<pre><code>$ cd matrey.github.io/
+$ git init .
+$ git add .
+$ git commit -m &quot;Hello world&quot;
+$ git remote add origin git@github.com:matrey/matrey.github.io.git
+$ git push -u origin master
+</code></pre>
+
+<p>Note that deployment is not instant, especially due to CDN caching on GitHub site.</p>
+
+<h3 id="custom-404-page">Custom 404 page</h3>
+
+<p>You just need to have a file named <code>404.html</code> at the root of your site.
+It turns out Hugo <a href="https://gohugo.io/templates/404/">takes care of it natively</a>:</p>
+
+<blockquote>
+<p>When using Hugo with GitHub Pages, you can provide your own template for a custom 404 error page by creating a <code>404.html</code> template file in your <code>/layouts</code> folder. When Hugo generates your site, the <code>404.html</code> file will be placed in the root.</p>
+</blockquote>
+
+<p>The theme we picked already provides a basic version:</p>
+
+<pre><code>$ cat themes/hugo-paper/layouts/404.html 
+{{ partial &quot;header.html&quot; . }}
+&lt;div class=&quot;not-found&quot;&gt;404&lt;/div&gt;
+{{ partial &quot;footer.html&quot; . }}
+</code></pre>
+
+<h2 id="scripting-the-publication">Scripting the publication</h2>
+
+<p>What we want:</p>
+
+<ul>
+<li>clear the publication folder to make sure we remove content that should not be there anymore</li>
+<li>run the Hugo compilation</li>
+<li>commit all files</li>
+<li>push to GitHub to update the website</li>
+</ul>
+
+<p>Let&rsquo;s adapt the <code>deploy.sh</code> <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script">script</a> from Hugo&rsquo;s documentation:</p>
+
+<pre><code>#!/bin/bash
+DIR=&quot;$( cd &quot;$( dirname &quot;${BASH_SOURCE[0]}&quot; )&quot; &amp;&amp; pwd )&quot;
+
+# Adapted from https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script
+
+# /!\ Paths to edit /!\
+HUGO_BIN=../hugo
+PUBLICATION_DIR=matrey.github.io
+
+# If a command fails then the deploy stops
+set -e
+
+printf &quot;\033[0;32mHugo build...\033[0m\n&quot;
+
+# Clear the publication folder (except the .git folder)
+cd &quot;${DIR}/${PUBLICATION_DIR}&quot;
+rm -f *.html *.xml
+rm -rf categories css img js page tags
+
+# Build the project
+cd &quot;${DIR}&quot;
+&quot;${HUGO_BIN}&quot;
+
+# Add changes to git
+cd &quot;${DIR}/${PUBLICATION_DIR}&quot;
+git add .
+
+printf &quot;\033[0;32mCommit to git...\033[0m\n&quot;
+
+# Commit changes
+msg=&quot;Hugo rebuild on $(date)&quot;
+if [ -n &quot;$*&quot; ]; then
+  msg=&quot;$*&quot;
+fi
+git commit -m &quot;$msg&quot;
+
+printf &quot;\033[0;32mPush to GitHub...\033[0m\n&quot;
+
+# Push to GitHub
+git push origin master
+
+exit 0
+</code></pre>
+
+<p>Note that this only takes care of the published version. Don&rsquo;t forget to also commit your changes in the source repository.</p></div>
+  <footer class="post-footer">
+    
+  </footer>
+  
+  
+  
+  
+</article>
+
+</main>
+<footer class="footer">
+  <span>&copy; 2019 <a href="https://matrey.github.io/">Mathieu Rey</a></span>
+  <span>&middot;</span>
+  <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+  <span>&middot;</span>
+  <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
+</footer>
+<script src="https://matrey.github.io/js/instantclick.min.js" data-no-instant></script>
+<script data-no-instant>InstantClick.init();</script>
+<script src="https://matrey.github.io/js/highlight.min.js" data-no-instant></script>
+<script data-no-instant>
+  let body;
+  function menuToggleListener() {
+    body.classList.toggle('blur');
+  }
+  function setMenuToggleListener() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    if (!menuToggle) return;
+    body = document.querySelector('body');
+    menuToggle.addEventListener('click', menuToggleListener);
+  }
+
+  hljs.initHighlightingOnLoad();
+  setMenuToggleListener();
+
+  InstantClick.on('change', function () {
+    document.querySelectorAll('pre code').forEach((block) => {
+      hljs.highlightBlock(block);
+    });
+    setMenuToggleListener();
+  });
+</script>
+</body>
+</html>
+
