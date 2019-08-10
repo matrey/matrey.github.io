@@ -14,18 +14,31 @@
   </url>
   
   <url>
+    <loc>https://matrey.github.io/tags/</loc>
+    <lastmod>2019-08-10T17:23:36+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matrey.github.io/tags/git/</loc>
+    <lastmod>2019-08-10T17:23:36+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://matrey.github.io/</loc>
     <lastmod>2019-08-10T17:23:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://matrey.github.io/categories/</loc>
+    <loc>https://matrey.github.io/tags/static/</loc>
+    <lastmod>2019-08-10T17:23:36+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://matrey.github.io/tags/</loc>
+    <loc>https://matrey.github.io/categories/</loc>
     <priority>0</priority>
   </url>
   
