@@ -259,6 +259,26 @@ matrey.github.io/404.html
 <p>Note that Hugo <a href="https://gohugo.io/getting-started/usage/#dev-vs-deploy-destinations">does not remove generated files before building</a>.
 It might be a good idea to purge the folder&rsquo;s contents before each generation.</p>
 
+<p>Let&rsquo;s also exclude the publication folder from the main git repo, as it will have its own repo:</p>
+
+<pre><code>echo '/matrey.github.io/**' &gt;&gt; .gitignore
+</code></pre>
+
+<p><em>Note that we could have made this a git submodule, like for the theme. But we are not interested in tracking changes in this repo (as it can be re-generated from the source in the main repo). Using a submodule would quickly bother us with this kind of display:</em></p>
+
+<pre><code>$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+	modified:   matrey.github.io (new commits)
+
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
+</code></pre>
+
 <h2 id="github-pages">GitHub pages</h2>
 
 <h3 id="create-the-repository">Create the repository</h3>
@@ -276,12 +296,6 @@ $ git push -u origin master
 </code></pre>
 
 <p>Note that changes might not appear immediately, due to CDN caching on GitHub site.</p>
-
-<p>To make sure this folder doesn&rsquo;t end up in the main repo, we declare it as a submodule:</p>
-
-<pre><code>$ cd ..
-$ git submodule add git@github.com:matrey/matrey.github.io.git matrey.github.io
-</code></pre>
 
 <h3 id="custom-404-page">Custom 404 page</h3>
 
