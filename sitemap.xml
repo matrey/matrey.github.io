@@ -3,17 +3,29 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://matrey.github.io/articles/</loc>
+    <lastmod>2019-08-10T17:23:36+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matrey.github.io/articles/hugo-on-github-pages/</loc>
+    <lastmod>2019-08-10T17:23:36+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matrey.github.io/</loc>
+    <lastmod>2019-08-10T17:23:36+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://matrey.github.io/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matrey.github.io/tags/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://matrey.github.io/</loc>
     <priority>0</priority>
   </url>
   
