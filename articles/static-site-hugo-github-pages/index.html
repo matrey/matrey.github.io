@@ -324,33 +324,32 @@ PUBLICATION_DIR=matrey.github.io
 # If a command fails then the deploy stops
 set -e
 
-printf &quot;\033[0;32mHugo build...\033[0m\n&quot;
-
 # Clear the publication folder (except the .git folder)
+# Thanks https://stackoverflow.com/a/22347541/8046487
 cd &quot;${DIR}/${PUBLICATION_DIR}&quot;
-rm -f *.html *.xml
-rm -rf categories css img js page tags
+printf &quot;\033[0;32mCleanup target folder...\033[0m\n&quot;
+git rm -rf . # removes all versioned files
+git clean -fxd # removes any file not under version control
 
 # Build the project
 cd &quot;${DIR}&quot;
+printf &quot;\033[0;32mHugo build...\033[0m\n&quot;
 &quot;${HUGO_BIN}&quot;
 
 # Add changes to git
 cd &quot;${DIR}/${PUBLICATION_DIR}&quot;
 git add .
 
-printf &quot;\033[0;32mCommit to git...\033[0m\n&quot;
-
 # Commit changes
+printf &quot;\033[0;32mCommit to git...\033[0m\n&quot;
 msg=&quot;Hugo rebuild on $(date)&quot;
 if [ -n &quot;$*&quot; ]; then
   msg=&quot;$*&quot;
 fi
 git commit -m &quot;$msg&quot;
 
-printf &quot;\033[0;32mPush to GitHub...\033[0m\n&quot;
-
 # Push to GitHub
+printf &quot;\033[0;32mPush to GitHub...\033[0m\n&quot;
 git push origin master
 
 exit 0
