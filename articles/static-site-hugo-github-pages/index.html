@@ -10,7 +10,7 @@
     <meta name="description" content="An exploration of Hugo, a static site generator, and how to host the resulting static website on GitHub pages.">
     <meta name="author" content="Mathieu Rey">
     
-    <link href="https://matrey.github.io/css/github-gist.min.css" rel="stylesheet">
+    <link href="https://matrey.github.io/css/syntax.css" rel="stylesheet">
     <link href="https://matrey.github.io/css/style.css" rel="stylesheet">
     
     <link rel="apple-touch-icon" href="https://matrey.github.io/img/apple-touch-icon.png">
@@ -70,14 +70,10 @@
 <em>Remark: there is an &ldquo;extended&rdquo; version with native support for SASS/SCSS &amp; PostCSS.</em></p>
 
 <h3 id="step-2-create-a-new-site">Step 2: Create a New Site</h3>
-
-<pre><code>$ ./hugo new site matrey
-$ cd matrey
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ ./hugo new site matrey
+$ <span class="nb">cd</span> matrey</code></pre></div>
 <p>Let&rsquo;s check the <a href="https://gohugo.io/getting-started/directory-structure/">directory structure</a> that was generated:</p>
-
-<pre><code>$ ls -1 --group-directories-first
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ ls -1 --group-directories-first
 archetypes
 content
 data
@@ -85,9 +81,7 @@ layouts
 resources
 static
 themes
-config.toml
-</code></pre>
-
+config.toml</code></pre></div>
 <p>Mainly:</p>
 
 <ul>
@@ -97,41 +91,32 @@ config.toml
 </ul>
 
 <p>By default only 2 files exist:</p>
-
-<pre><code>$ find . -type f
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ find . -type f
 ./config.toml
 ./archetypes/default.md
 
 $ cat ./archetypes/default.md 
 ---
-title: &quot;{{ replace .Name &quot;-&quot; &quot; &quot; | title }}&quot;
-date: {{ .Date }}
-draft: true
+title: <span class="s2">&#34;{{ replace .Name &#34;</span>-<span class="s2">&#34; &#34;</span> <span class="s2">&#34; | title }}&#34;</span>
+date: <span class="o">{{</span> .Date <span class="o">}}</span>
+draft: <span class="nb">true</span>
 ---
 
 $ cat ./config.toml
-baseURL = &quot;http://example.org/&quot;
-languageCode = &quot;en-us&quot;
-title = &quot;My New Hugo Site&quot;
-</code></pre>
-
+<span class="nv">baseURL</span> <span class="o">=</span> <span class="s2">&#34;http://example.org/&#34;</span>
+<span class="nv">languageCode</span> <span class="o">=</span> <span class="s2">&#34;en-us&#34;</span>
+<span class="nv">title</span> <span class="o">=</span> <span class="s2">&#34;My New Hugo Site&#34;</span></code></pre></div>
 <p>Let&rsquo;s push that to the git repository holding the source:</p>
-
-<pre><code>$ git init
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ git init
 $ git remote add origin git@github.com:matrey/matrey.github.io-source.git
 $ git add .
-$ git commit -m &quot;./hugo new site&quot;
-$ git push -u origin master
-</code></pre>
-
+$ git commit -m <span class="s2">&#34;./hugo new site&#34;</span>
+$ git push -u origin master</code></pre></div>
 <h3 id="step-3-add-a-theme">Step 3: Add a Theme</h3>
-
-<pre><code>$ git submodule add https://github.com/nanxiaobei/hugo-paper.git themes/hugo-paper
-$ echo 'theme = &quot;hugo-paper&quot;' &gt;&gt; config.toml
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ git submodule add https://github.com/nanxiaobei/hugo-paper.git themes/hugo-paper
+$ <span class="nb">echo</span> <span class="s1">&#39;theme = &#34;hugo-paper&#34;&#39;</span> &gt;&gt; config.toml
 $ git add config.toml
-$ git commit -m &quot;Add hugo-paper theme&quot;
-</code></pre>
-
+$ git commit -m <span class="s2">&#34;Add hugo-paper theme&#34;</span></code></pre></div>
 <p>Importing the theme as a git submodule means we won&rsquo;t be able to edit its source code as part of our codebase.
 But that&rsquo;s alright, because the proper way to overload a theme is by leveraging Hugo&rsquo;s <a href="https://gohugo.io/templates/lookup-order/">lookup order</a>.</p>
 
@@ -148,10 +133,7 @@ But that&rsquo;s alright, because the proper way to overload a theme is by lever
 </blockquote>
 
 <h3 id="step-4-add-some-content">Step 4: Add Some Content</h3>
-
-<pre><code>$ ../hugo new articles/static-site-hugo-github-pages.md
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ ../hugo new articles/static-site-hugo-github-pages.md</code></pre></div>
 <p>You might want to get a refresher course on Markdown from this <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet</a>.</p>
 
 <p>Note that you can explicitly add a summary divider in your page content, to control what content is shown on pagelists.
@@ -170,10 +152,7 @@ According to <a href="https://gohugo.io/content-management/summaries/#manual-sum
 <p>By default Hugo will not publish content in &ldquo;draft&rdquo; status</p>
 
 <p>Start the Hugo server for local development, with drafts:</p>
-
-<pre><code>../hugo server -D
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">../hugo server -D</code></pre></div>
 <p><em>If you are not in the root folder from the Hugo site, you can pass its path through <code>-s ~/my-hugo-site</code></em></p>
 
 <p>Then navigate to your new site at <a href="http://localhost:1313/">http://localhost:1313/</a></p>
@@ -184,45 +163,29 @@ According to <a href="https://gohugo.io/content-management/summaries/#manual-sum
 
 <p>Let&rsquo;s change the copyright holder in the footer.
 Unfortunately it is hardcoded to <code>.Site.Title</code> in the template, so we will have to overload it:</p>
-
-<pre><code>$ mkdir -p ./layouts/partials/
-$ cp ./themes/hugo-paper/layouts/partials/footer.html ./layouts/partials/
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ mkdir -p ./layouts/partials/
+$ cp ./themes/hugo-paper/layouts/partials/footer.html ./layouts/partials/</code></pre></div>
 <p><em>Note that the <a href="https://gohugo.io/variables/site/#site-variables-list">Site Variables</a> page mentions <code>.Site.Author</code> as a variable that should be available by default.
 When using it in the layout, it&rsquo;s true there is no error (so, the variable seems to exist), but it ends up reading <code>© 2019 map[]</code>.
 It&rsquo;s really unclear <a href="https://github.com/gohugoio/hugo/issues/4458">what</a> <a href="https://discourse.gohugo.io/t/site-authors-not-implemented/10446/6">is</a> <a href="https://github.com/gohugoio/hugo/issues/3088">the</a> <a href="https://hugomodo.github.io/blog/hugo-s-author-and-authors/">status</a> on this feature. So we&rsquo;ll use a distinct variable.</em></p>
 
 <p>Let&rsquo;s create a new variable in <code>config.toml</code> by adding the following:</p>
-
-<pre><code>[params]
-  AuthorName = &quot;Mathieu Rey&quot;
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>params<span class="o">]</span>
+  <span class="nv">AuthorName</span> <span class="o">=</span> <span class="s2">&#34;Mathieu Rey&#34;</span></code></pre></div>
 <p>Then edit our copy of the footer to use <code>.Site.Params.AuthorName</code>:</p>
-
-<pre><code>$ diff ./themes/hugo-paper/layouts/partials/footer.html ./layouts/partials/footer.html
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ diff ./themes/hugo-paper/layouts/partials/footer.html ./layouts/partials/footer.html
 3c3
-&lt;   &lt;span&gt;&amp;copy; {{ now.Year }} &lt;a href=&quot;{{ &quot;&quot; | absURL }}&quot;&gt;{{ .Site.Title }}&lt;/a&gt;&lt;/span&gt;
+&lt;   &lt;span&gt;<span class="p">&amp;</span>copy<span class="p">;</span> <span class="o">{{</span> now.Year <span class="o">}}</span> &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&#34;{{ &#34;&#34; | absURL }}&#34;</span>&gt;<span class="o">{{</span> .Site.Title <span class="o">}}</span>&lt;/a&gt;&lt;/span&gt;
 ---
-&gt;   &lt;span&gt;&amp;copy; {{ now.Year }} &lt;a href=&quot;{{ &quot;&quot; | absURL }}&quot;&gt;{{ .Site.Params.AuthorName }}&lt;/a&gt;&lt;/span&gt;
-</code></pre>
-
+&gt;   &lt;span&gt;<span class="p">&amp;</span>copy<span class="p">;</span> <span class="o">{{</span> now.Year <span class="o">}}</span> &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&#34;{{ &#34;&#34; | absURL }}&#34;</span>&gt;<span class="o">{{</span> .Site.Params.AuthorName <span class="o">}}</span>&lt;/a&gt;&lt;/span&gt;</code></pre></div>
 <h3 id="publication-folder">Publication folder</h3>
 
 <p>By default the publication folder is named <code>public</code>. Let&rsquo;s set a more explicit one in <code>config.toml</code>:</p>
-
-<pre><code>publishDir = &quot;matrey.github.io&quot;
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">publishDir</span> <span class="o">=</span> <span class="s2">&#34;matrey.github.io&#34;</span></code></pre></div>
 <p>Also, don&rsquo;t forget to replace the default <code>baseURL</code> with the real production URL (including a trailing slash):</p>
-
-<pre><code>baseURL = &quot;https://matrey.github.io/&quot;
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">baseURL</span> <span class="o">=</span> <span class="s2">&#34;https://matrey.github.io/&#34;</span></code></pre></div>
 <p>Let&rsquo;s publish the site by calling <code>hugo</code> without any parameter:</p>
-
-<pre><code>$ ../hugo
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ ../hugo
 
 $ find matrey.github.io/
 matrey.github.io/
@@ -253,32 +216,24 @@ matrey.github.io/categories/index.xml
 matrey.github.io/categories/page
 matrey.github.io/categories/page/1
 matrey.github.io/categories/page/1/index.html
-matrey.github.io/404.html
-</code></pre>
-
+matrey.github.io/404.html</code></pre></div>
 <p>Note that Hugo <a href="https://gohugo.io/getting-started/usage/#dev-vs-deploy-destinations">does not remove generated files before building</a>.
 It might be a good idea to purge the folder&rsquo;s contents before each generation.</p>
 
 <p>Let&rsquo;s also exclude the publication folder from the main git repo, as it will have its own repo:</p>
-
-<pre><code>echo '/matrey.github.io/**' &gt;&gt; .gitignore
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s1">&#39;/matrey.github.io/**&#39;</span> &gt;&gt; .gitignore</code></pre></div>
 <p><em>Note that we could have made this a git submodule, like for the theme. But we are not interested in tracking changes in this repo (as it can be re-generated from the source in the main repo). Using a submodule would quickly bother us with this kind of display:</em></p>
-
-<pre><code>$ git status
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ git status
 On branch master
-Your branch is up to date with 'origin/master'.
+Your branch is up to date with <span class="s1">&#39;origin/master&#39;</span>.
 
-Changes not staged for commit:
-  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+Changes not staged <span class="k">for</span> commit:
+  <span class="o">(</span>use <span class="s2">&#34;git add &lt;file&gt;...&#34;</span> to update what will be committed<span class="o">)</span>
+  <span class="o">(</span>use <span class="s2">&#34;git checkout -- &lt;file&gt;...&#34;</span> to discard changes in working directory<span class="o">)</span>
 
-	modified:   matrey.github.io (new commits)
+	modified:   matrey.github.io <span class="o">(</span>new commits<span class="o">)</span>
 
-no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
-</code></pre>
-
+no changes added to commit <span class="o">(</span>use <span class="s2">&#34;git add&#34;</span> and/or <span class="s2">&#34;git commit -a&#34;</span><span class="o">)</span></code></pre></div>
 <h2 id="github-pages">GitHub pages</h2>
 
 <h3 id="create-the-repository">Create the repository</h3>
@@ -286,15 +241,12 @@ no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&q
 <p>For a user site, you just need to create a new repository named <code>username.github.io</code>, where <code>username</code> is your username on GitHub.</p>
 
 <p>Let&rsquo;s push the contents of our publication folder to it:</p>
-
-<pre><code>$ cd matrey.github.io/
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">cd</span> matrey.github.io/
 $ git init .
 $ git add .
-$ git commit -m &quot;Hello world&quot;
+$ git commit -m <span class="s2">&#34;Hello world&#34;</span>
 $ git remote add origin git@github.com:matrey/matrey.github.io.git
-$ git push -u origin master
-</code></pre>
-
+$ git push -u origin master</code></pre></div>
 <p>Note that changes might not appear immediately, due to CDN caching on GitHub site.</p>
 
 <h3 id="custom-404-page">Custom 404 page</h3>
@@ -307,13 +259,10 @@ It turns out Hugo <a href="https://gohugo.io/templates/404/">takes care of it na
 </blockquote>
 
 <p>The theme we picked already provides a basic version:</p>
-
-<pre><code>$ cat themes/hugo-paper/layouts/404.html 
-{{ partial &quot;header.html&quot; . }}
-&lt;div class=&quot;not-found&quot;&gt;404&lt;/div&gt;
-{{ partial &quot;footer.html&quot; . }}
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ cat themes/hugo-paper/layouts/404.html 
+<span class="o">{{</span> partial <span class="s2">&#34;header.html&#34;</span> . <span class="o">}}</span>
+&lt;div <span class="nv">class</span><span class="o">=</span><span class="s2">&#34;not-found&#34;</span>&gt;404&lt;/div&gt;
+<span class="o">{{</span> partial <span class="s2">&#34;footer.html&#34;</span> . <span class="o">}}</span></code></pre></div>
 <h2 id="scripting-the-publication">Scripting the publication</h2>
 
 <p>What we want:</p>
@@ -326,50 +275,47 @@ It turns out Hugo <a href="https://gohugo.io/templates/404/">takes care of it na
 </ul>
 
 <p>Let&rsquo;s adapt the <code>deploy.sh</code> <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script">script</a> from Hugo&rsquo;s documentation:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="nv">DIR</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span> <span class="nb">cd</span> <span class="s2">&#34;</span><span class="k">$(</span> dirname <span class="s2">&#34;</span><span class="si">${</span><span class="nv">BASH_SOURCE</span><span class="p">[0]</span><span class="si">}</span><span class="s2">&#34;</span> <span class="k">)</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> <span class="nb">pwd</span> <span class="k">)</span><span class="s2">&#34;</span>
 
-<pre><code>#!/bin/bash
-DIR=&quot;$( cd &quot;$( dirname &quot;${BASH_SOURCE[0]}&quot; )&quot; &amp;&amp; pwd )&quot;
+<span class="c1"># Adapted from https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script</span>
 
-# Adapted from https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script
+<span class="c1"># /!\ Paths to edit /!\</span>
+<span class="nv">HUGO_BIN</span><span class="o">=</span>../hugo
+<span class="nv">PUBLICATION_DIR</span><span class="o">=</span>matrey.github.io
 
-# /!\ Paths to edit /!\
-HUGO_BIN=../hugo
-PUBLICATION_DIR=matrey.github.io
+<span class="c1"># If a command fails then the deploy stops</span>
+<span class="nb">set</span> -e
 
-# If a command fails then the deploy stops
-set -e
+<span class="c1"># Clear the publication folder (except the .git folder)</span>
+<span class="c1"># Thanks https://stackoverflow.com/a/22347541/8046487</span>
+<span class="nb">cd</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">DIR</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">PUBLICATION_DIR</span><span class="si">}</span><span class="s2">&#34;</span>
+<span class="nb">printf</span> <span class="s2">&#34;\033[0;32mCleanup target folder...\033[0m\n&#34;</span>
+git rm -rf . <span class="c1"># removes all versioned files</span>
+git clean -fxd <span class="c1"># removes any file not under version control</span>
 
-# Clear the publication folder (except the .git folder)
-# Thanks https://stackoverflow.com/a/22347541/8046487
-cd &quot;${DIR}/${PUBLICATION_DIR}&quot;
-printf &quot;\033[0;32mCleanup target folder...\033[0m\n&quot;
-git rm -rf . # removes all versioned files
-git clean -fxd # removes any file not under version control
+<span class="c1"># Build the project</span>
+<span class="nb">cd</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">DIR</span><span class="si">}</span><span class="s2">&#34;</span>
+<span class="nb">printf</span> <span class="s2">&#34;\033[0;32mHugo build...\033[0m\n&#34;</span>
+<span class="s2">&#34;</span><span class="si">${</span><span class="nv">HUGO_BIN</span><span class="si">}</span><span class="s2">&#34;</span>
 
-# Build the project
-cd &quot;${DIR}&quot;
-printf &quot;\033[0;32mHugo build...\033[0m\n&quot;
-&quot;${HUGO_BIN}&quot;
-
-# Add changes to git
-cd &quot;${DIR}/${PUBLICATION_DIR}&quot;
+<span class="c1"># Add changes to git</span>
+<span class="nb">cd</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">DIR</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">PUBLICATION_DIR</span><span class="si">}</span><span class="s2">&#34;</span>
 git add .
 
-# Commit changes
-printf &quot;\033[0;32mCommit to git...\033[0m\n&quot;
-msg=&quot;Hugo rebuild on $(date)&quot;
-if [ -n &quot;$*&quot; ]; then
-  msg=&quot;$*&quot;
-fi
-git commit -m &quot;$msg&quot;
+<span class="c1"># Commit changes</span>
+<span class="nb">printf</span> <span class="s2">&#34;\033[0;32mCommit to git...\033[0m\n&#34;</span>
+<span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;Hugo rebuild on </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&#34;</span>
+<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span>
+<span class="k">fi</span>
+git commit -m <span class="s2">&#34;</span><span class="nv">$msg</span><span class="s2">&#34;</span>
 
-# Push to GitHub
-printf &quot;\033[0;32mPush to GitHub...\033[0m\n&quot;
+<span class="c1"># Push to GitHub</span>
+<span class="nb">printf</span> <span class="s2">&#34;\033[0;32mPush to GitHub...\033[0m\n&#34;</span>
 git push origin master
 
-exit 0
-</code></pre>
-
+<span class="nb">exit</span> <span class="m">0</span></code></pre></div>
 <p>Note that this only takes care of the published version. Don&rsquo;t forget to also commit your changes in the source repository.</p></div>
   <footer class="post-footer">
     
@@ -398,7 +344,6 @@ exit 0
 </footer>
 <script src="https://matrey.github.io/js/instantclick.min.js" data-no-instant></script>
 <script data-no-instant>InstantClick.init();</script>
-<script src="https://matrey.github.io/js/highlight.min.js" data-no-instant></script>
 <script data-no-instant>
   let body;
   function menuToggleListener() {
@@ -411,13 +356,9 @@ exit 0
     menuToggle.addEventListener('click', menuToggleListener);
   }
 
-  hljs.initHighlightingOnLoad();
   setMenuToggleListener();
 
   InstantClick.on('change', function () {
-    document.querySelectorAll('pre code').forEach((block) => {
-      hljs.highlightBlock(block);
-    });
     setMenuToggleListener();
   });
 </script>

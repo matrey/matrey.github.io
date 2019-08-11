@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <link href="https://matrey.github.io/css/github-gist.min.css" rel="stylesheet">
+    <link href="https://matrey.github.io/css/syntax.css" rel="stylesheet">
     <link href="https://matrey.github.io/css/style.css" rel="stylesheet">
     
     <link rel="apple-touch-icon" href="https://matrey.github.io/img/apple-touch-icon.png">
@@ -50,11 +50,13 @@
 
 <article class="post-entry">
   <header class="entry-header">
-    <h2>Static site with Hugo and GitHub Pages</h2>
+	  <h2>Static site with Hugo and GitHub Pages</h2>
   </header>
   <section class="entry-content">
+   
    <p>An exploration of Hugo, a static site generator, and how to host the resulting static website on GitHub pages.
 ...</p>
+   
   </section>
   <footer class="entry-footer">
     <time>2019.8.10</time>
@@ -76,7 +78,6 @@
 </footer>
 <script src="https://matrey.github.io/js/instantclick.min.js" data-no-instant></script>
 <script data-no-instant>InstantClick.init();</script>
-<script src="https://matrey.github.io/js/highlight.min.js" data-no-instant></script>
 <script data-no-instant>
   let body;
   function menuToggleListener() {
@@ -89,13 +90,9 @@
     menuToggle.addEventListener('click', menuToggleListener);
   }
 
-  hljs.initHighlightingOnLoad();
   setMenuToggleListener();
 
   InstantClick.on('change', function () {
-    document.querySelectorAll('pre code').forEach((block) => {
-      hljs.highlightBlock(block);
-    });
     setMenuToggleListener();
   });
 </script>
